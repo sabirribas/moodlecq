@@ -1,4 +1,4 @@
-Grader Deamon
+Grader Daemon
 =============
 
 This is the program that runs student's codes.
