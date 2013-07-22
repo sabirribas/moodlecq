@@ -100,8 +100,7 @@ public function http_post ($url, $data)
 	// TODO
 	// store both files in /tmp/mdl_code.log
 
-	//$url = "http://localhost:8000/quap/testcode/";
-	$url = "http://www.latin.dcc.ufmg.br/srlab/quap/testcode/";
+	$url = "http://localhost:8000/quap/testcode/";
 	//$url = "http://localhost/quap/testcode/";
 
 	$lang = self::get_lang_from_last_line($usercode);
