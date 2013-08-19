@@ -1,0 +1,7 @@
+/* Esse arquivo será substituído, no momento da avaliação, pelo código a ser testado. */
+
+// Exemplo de código submetido por um bom aluno.
+int soma(int a,int b)
+{
+	return a+b;
+}
