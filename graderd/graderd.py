@@ -232,12 +232,11 @@ class CodeTesterExternal(CodeTester):
 		
 		print "replacing __USERCODE__"
 
-		with open('%s/tester.cpp'%self.testerdir) as f: tester_code = f.read()
-		with open('%s/tester.cpp'%self.testerdir,'w') as f: f.write( tester_code.replace('__USERCODE__',code) )
+		with open('%s/__USERCODE__'%self.testerdir,'w') as f: f.write( code )
 
 		return
 
-        def clear(self):
+	def clear(self):
 
 		os.system("rm -r '%s'" % self.testerdir)
 
