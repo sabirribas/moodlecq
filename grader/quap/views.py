@@ -75,8 +75,9 @@ def testcode(request):
 		'method':method,
 		'params':params,
 		'result':resultvalue,
-		'score' : float(resultvalue['success'].count(True)) / float(len(resultvalue['success'])) ,
+		'score' : sum( resultvalue['success'] ) / float( len( resultvalue['success']) ) ,
 	}
+	#'score' : float(resultvalue['success'].count(True)) / float(len(resultvalue['success'])) ,
 
 	return HttpResponse( json.dumps(resultjson) , mimetype="application/json" )
 

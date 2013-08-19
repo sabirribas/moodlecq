@@ -255,7 +255,12 @@ class CodeTesterExternal(CodeTester):
 		result = filter( lambda x: not ( len(x.strip()) == 0 or 
 			len(x)>=5 and x[:5]=='make:') , result.split('\n'))
 
-		return result[-1].split()[0] == '1'
+
+		gradeline = result[-1]
+		if gradeline.find('GRADE:') >= 0:
+			return float(gradeline.split('GRADE:')[1].split()[0])
+		else:
+			return 0.0
 
 		#return student_out.split() == test_out.split()
 
