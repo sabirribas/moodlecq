@@ -7,7 +7,7 @@ defined('MOODLE_INTERNAL') || die();
     {
         $lines = explode("\n", $code);
         $lastline = $lines[count($lines)-1];
-        $c = array('//cpp' => 'cpp','//sce' => 'sce', '#py' => 'py');
+        $c = array('//cpp' => 'cpp','//sce' => 'sce', '#py' => 'py', '<!-- logisim -->' => 'logisim');
         $lang = $c[$lastline];
         if (!$lang) $lang = 'cpp';
         //die($lang);
@@ -69,6 +69,7 @@ class qtype_code_renderer extends qtype_renderer {
                 "<option value='cpp'>C++</option>".
 		"<option value='py'>Python</option>".
                 "<option value='sce'>Scilab</option>".
+                "<option value='logisim'>Logisim</option>".
 		"</select><br/>";
 
 	$input.="<script>document.getElementById('".$inputname."_inputlang').value='".$lang."';</script>";
@@ -80,7 +81,7 @@ class qtype_code_renderer extends qtype_renderer {
 
 	//$input.= '<script>onsubmit=function () { var code = document.getElementById("'.$inputname.'").value; var lang = document.getElementById("'.$inputname.'_inputlang").value; var c = "//"; if (lang == "py") c = "#"; var newcode = code + "\n\n" + c + lang ; document.getElementById("'.$inputname.'").value = newcode; return true;} //document.getElementById("'.$inputname.'_inputlang").value="'.$lang.'"; </script>';
 
-	$input.= '<script>if(typeof funcs === "undefined") var funcs=new Array; funcs.push( function(){ var code = document.getElementById("'.$inputname.'").value; var lang = document.getElementById("'.$inputname.'_inputlang").value; var c = "//"; if (lang == "py") c = "#"; var newcode = code + "\n\n" + c + lang ; document.getElementById("'.$inputname.'").value = newcode; } ); onsubmit=function(){ for (var i = 0; i < funcs.length; i++) funcs[i](); return true;}</script>';
+	$input.= '<script>if(typeof funcs === "undefined") var funcs=new Array; funcs.push( function(){ var code = document.getElementById("'.$inputname.'").value; var lang = document.getElementById("'.$inputname.'_inputlang").value; var c = "//"; if (lang == "py") c = "#"; var newcode = code + "\n\n" + c + lang ; if (lang == "logisim") newcode = code + "\n\n<!-- logisim -->"; document.getElementById("'.$inputname.'").value = newcode; } ); onsubmit=function(){ for (var i = 0; i < funcs.length; i++) funcs[i](); return true;}</script>';
 
         if ($placeholder) {
             $inputinplace = html_writer::tag('label', get_string('answer'),
