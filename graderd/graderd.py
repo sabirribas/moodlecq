@@ -45,7 +45,7 @@ class RPCTCP(RPC):
 		try:
 			self.con, self.cliente = self.tcp.accept()
 			print 'Concetado por', self.cliente
-		        msg = self.con.recv(1024)
+		        msg = self.con.recv(1048576) # 1MB
 			msgjson = json.loads(msg)
 			method  = msgjson['method']
 			params  = msgjson['params']
@@ -250,7 +250,7 @@ class CodeTesterExternal(CodeTester):
 		# run
 		print "run"
 	
-		result = call_system('make run -C "%s"' % self.testerdir)
+		result = call_system('timeout 3s make run -C "%s"' % self.testerdir)
 
 		result = filter( lambda x: not ( len(x.strip()) == 0 or 
 			len(x)>=5 and x[:5]=='make:') , result.split('\n'))
