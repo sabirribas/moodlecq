@@ -1,0 +1,69 @@
+= Como adicionar uma questão de código? =
+
+(1) Crie um questionário (Quiz)
+(2) Adicione uma questão do tipo "Code"
+(3) Preencha o enunciado
+(4) Forneça os dados de teste no campo "Answer 1"
+
+= Opções de teste =
+
+O plugin oferece duas opções de teste:
+(1) por entrada e saída padrão e
+(2) específico.
+
+== Teste por entrada e saída padrão ==
+
+Gramática
+
+tests  ::= [ test ]
+test   ::= [ input , output ]
+input  ::= string
+output ::= string
+
+Exemplo
+
+[ ['1 2','3'] , ['-1 2','1'] ]
+
+A linha de teste acima automatiza a correção de um 
+exercício cujo objetivo é ler dois números inteiros
+da entrada padrão e apresentar a soma desses valores.
+
+== Testador específico ==
+
+Gramática
+
+tests  ::= [['__TESTER__',url]]
+url    ::= string
+
+Exemplo
+
+[['__TESTER__','http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_cpp.zip']]
+
+=== Definindo um testador específico ===
+
+Um testador específico é um arquivo .zip contendo 
+um arquivo makefile com duas diretivas: tester e run.
+
+Conteúdo do arquivo .zip
+
+  - makefile
+  - demais códigos e arquivos auxiliares necessários para compilação e teste
+
+Restrição sobre o 'make run'
+
+Para que o código do aluno seja avaliado e sua nota seja gravada no Moodle, 
+a última linha exibida pela diretiva run do makefile (make run) deve ser
+a nota obtida no intervalo [0.0,1.0].
+
+Código do estudante
+
+O código a ser avaliado será adicionado ao arquivo .zip sob o nome __USERCODE__.
+
+Dica
+
+Use a diretiva tester do makefile para fazer as manipulações textuais necessárias antes de avaliar o código.
+
+Exemplo
+
+Veja: http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_cpp.zip
+

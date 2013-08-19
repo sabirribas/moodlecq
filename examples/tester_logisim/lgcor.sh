@@ -52,7 +52,7 @@ else
 	let "count -= 9"
 	echo "C: $count E: $err"
 	res=$(echo "scale=2; 1 - $err/$count" | bc -l)
-	echo "$res"
+	echo "GRADE:$res"
 	rm result.txt
 fi
 

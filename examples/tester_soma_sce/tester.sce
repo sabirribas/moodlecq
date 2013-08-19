@@ -1,3 +1,6 @@
+try:
+
+
 // Incluíndo código do estudante
 exec('soma.sci');
 
@@ -13,3 +16,9 @@ if ( soma(-10,9) == -1 ) success = success + 1; end; tests = tests + 1;
 printf("GRADE:%f\n",success/tests);
 
 exit;
+
+
+catch
+printf('ERROR');
+exit;
+end
