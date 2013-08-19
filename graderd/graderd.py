@@ -45,7 +45,7 @@ class RPCTCP(RPC):
 		try:
 			self.con, self.cliente = self.tcp.accept()
 			print 'Concetado por', self.cliente
-		        msg = self.con.recv(1024)
+		        msg = self.con.recv(1048576) # 1MB
 			msgjson = json.loads(msg)
 			method  = msgjson['method']
 			params  = msgjson['params']
