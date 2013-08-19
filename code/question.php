@@ -75,7 +75,7 @@ public function http_post ($url, $data)
     {
 	$lines = explode("\n", $code);
 	$lastline = $lines[count($lines)-1];
-	$c = array('//cpp' => 'cpp','//sce' => 'sce', '#py' => 'py');
+	$c = array('//cpp' => 'cpp','//sce' => 'sce', '#py' => 'py', '<!-- logisim -->' => 'logisim');
 	$lang = $c[$lastline];
 	if (!$lang) $lang = 'cpp';
 	//die($lang);
@@ -115,7 +115,7 @@ public function http_post ($url, $data)
 	$data_len = strlen ($data_url);
 
 	// {"score": 0.5, "params": {"lang": "py", "tests": [["1\n2\n", "3\n"], ["2\n3\n", "4\n"]], "code": "a = int(raw_input(''))\r\nb = int(raw_input(''))\r\nprint a+b\r\n"}, "method": "testcode", "result": {"success": [true, false]}}
-	$result = file_get_contents($url,false,stream_context_create(array('http'=>array('method'=>'post','content'=>$data_url))),null);
+	$result = file_get_contents($url,false,stream_context_create(array('http'=>array('method'=>'post','content'=>$data_url,'timeout'=>2.5))),null);
 
 	$resultjson = json_decode($result);
 
