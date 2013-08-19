@@ -28,7 +28,7 @@ class RPCTCPClient:
 		tcp.send (msg)
 
 		# recv
-		msg = tcp.recv(1024)
+		msg = tcp.recv(1048576)
 
 		# close
 		tcp.close()
