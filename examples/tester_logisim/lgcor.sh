@@ -36,7 +36,7 @@ sed '2d' _aux2.txt > test_output.txt
 
 if `diff sol_output.txt test_output.txt >/dev/null` && [ -s sol_output.txt ] && [ -s test_output.txt ]; then
 	echo "TRUE"
-	echo "1"
+	echo "GRADE:1"
 else
 	echo "FALSE"
 	sed -n '8p' < sol_output.txt
