@@ -193,6 +193,6 @@ import sys
 saveout = sys.stdout
 sys.stdout = open('/tmp/grader-stdout.log', 'w')
 
-#saveerr = sys.stderr
-#sys.stderr = open('/tmp/grader-stderr.log', 'w')  
+saveerr = sys.stderr
+sys.stderr = open('/tmp/grader-stderr.log', 'w')  
 

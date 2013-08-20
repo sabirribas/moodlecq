@@ -5,4 +5,5 @@ tester:
 
 run:
 	# executando testador
-	scilab -nb -nw -nogui -f tester.sce 2> err
+	scilab -nb -nw -nogui -f tester.sce 2> err > output
+	cat output | grep "GRADE"
