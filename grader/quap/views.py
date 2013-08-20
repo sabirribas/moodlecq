@@ -80,7 +80,9 @@ def testcode(request):
 	code = request.POST['code']
 	tests = request.POST['tests']
 
-	print lang,code,tests
+	print '= TESTCODE ='
+
+	print 'lang:\n%s\n\ncode:\n%s\n\ntests:\n%s'%(lang,code,str(tests))
 	#return HttpResponse('Hello world')
 
 	rpcclient = RPCTCPClient()
