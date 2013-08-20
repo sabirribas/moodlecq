@@ -1,6 +1,3 @@
-try:
-
-
 // Incluíndo código do estudante
 exec('soma.sci');
 
@@ -17,8 +14,3 @@ printf("GRADE:%f\n",success/tests);
 
 exit;
 
-
-catch
-printf('ERROR');
-exit;
-end

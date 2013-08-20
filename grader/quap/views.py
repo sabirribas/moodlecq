@@ -120,7 +120,15 @@ def testcode(request):
 
 
 
+'''
+test
 
+cd moodlecq/grader
+ipython manage.py shell
+path_graderd = '/home/sabir/moodlecq/graderd' ; import sys,os ; sys.path.append(path_graderd) ; import graderd
+code = "function s = soma(a,b)\ns=a+b;\nendfunction\n"; params = {'lang':'sce','code':code,'tests':[['__TESTER__','http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_sce.zip']]}; result = graderd.testcode(params); result
+
+'''
 
 
 
