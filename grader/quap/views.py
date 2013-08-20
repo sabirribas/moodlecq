@@ -105,8 +105,9 @@ def testcode(request):
 	}
 	#'score' : float(resultvalue['success'].count(True)) / float(len(resultvalue['success'])) ,
 
-	logger.info('\n\n===============\n\n')
-	logger.info(json.dumps(resultjson)+'\n\n')
+	#logger.info('\n\n===============\n\n')
+	#logger.info(json.dumps(resultjson)+'\n\n')
+	print json.dumps(resultjson)
 
 	return HttpResponse( json.dumps(resultjson) , mimetype="application/json" )
 

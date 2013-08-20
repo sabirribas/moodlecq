@@ -252,6 +252,8 @@ class CodeTesterExternal(CodeTester):
 	
 		result = call_system('timeout 3s make run -C "%s"' % self.testerdir)
 
+		print result
+
 		result = filter( lambda x: not ( len(x.strip()) == 0 or 
 			len(x)>=5 and x[:5]=='make:') , result.split('\n'))
 
