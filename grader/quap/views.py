@@ -6,6 +6,7 @@ import sys,os
 path_graderd = os.path.dirname(os.path.abspath(__file__))+'/../../graderd'
 sys.path.append(path_graderd)
 import graderd
+import logging
 logger = logging.getLogger(__name__)
 
 def test(request):
