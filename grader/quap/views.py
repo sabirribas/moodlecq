@@ -76,7 +76,8 @@ def testcode(request):
 	#result = rpcclient.call(method,params)
 	result = graderd.testcode(params)
 
-	resultvalue = json.loads(result)
+	#resultvalue = json.loads(result)
+	resultvalue = result
 
 	resultjson = {
 		'method':method,
