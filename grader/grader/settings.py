@@ -150,7 +150,7 @@ LOGGING = {
     }
 }
 
-LOGGING = {
+'''LOGGING = {
     'version': 1,
     'formatters': {
         'verbose': {
@@ -186,5 +186,13 @@ if DEBUG:
     # make all loggers use the console.
     for logger in LOGGING['loggers']:
         LOGGING['loggers'][logger]['handlers'] += ['console']
+'''
 
+import sys
+
+saveout = sys.stdout
+sys.stdout = open('/tmp/grader-stdout.log', 'w')
+
+#saveerr = sys.stderr
+#sys.stderr = open('/tmp/grader-stderr.log', 'w')  
 
