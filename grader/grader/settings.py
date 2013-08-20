@@ -187,3 +187,4 @@ if DEBUG:
     for logger in LOGGING['loggers']:
         LOGGING['loggers'][logger]['handlers'] += ['console']
 
+

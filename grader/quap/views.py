@@ -6,6 +6,7 @@ import sys,os
 path_graderd = os.path.dirname(os.path.abspath(__file__))+'/../../graderd'
 sys.path.append(path_graderd)
 import graderd
+logger = logging.getLogger(__name__)
 
 def test(request):
 	content = "This is only a test!"
@@ -51,7 +52,21 @@ def test_socket(request):
 	#result = rpcclient.call(method,params)
 	result = graderd.testcode(params)
 
-	return HttpResponse( method + ' ' + str(params) + '<br/>' + str(result) )
+	#return HttpResponse( method + ' ' + str(params) + '<br/>' + str(result) )
+
+	#resultvalue = json.loads(result)
+	resultvalue = result
+
+	resultjson = {
+		'method':method,
+		'params':params,
+		'result':resultvalue,
+		'score' : sum( resultvalue['success'] ) / float( len( resultvalue['success']) ) ,
+	}
+	#'score' : float(resultvalue['success'].count(True)) / float(len(resultvalue['success'])) ,
+
+	return HttpResponse( json.dumps(resultjson) , mimetype="application/json" )
+
 
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
@@ -86,6 +101,9 @@ def testcode(request):
 		'score' : sum( resultvalue['success'] ) / float( len( resultvalue['success']) ) ,
 	}
 	#'score' : float(resultvalue['success'].count(True)) / float(len(resultvalue['success'])) ,
+
+	logger.info('\n\n===============\n\n')
+	logger.info(json.dumps(resultjson)+'\n\n')
 
 	return HttpResponse( json.dumps(resultjson) , mimetype="application/json" )
 
