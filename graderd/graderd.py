@@ -304,7 +304,7 @@ def testcode(params):
 		print '#test',test
 		success.append( codetester.test(test[0],test[1]) )
 
-	codetester.clear()
+	#codetester.clear()
 
 	return {'success':success}
 
