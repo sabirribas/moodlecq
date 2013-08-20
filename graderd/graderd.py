@@ -250,7 +250,7 @@ class CodeTesterExternal(CodeTester):
 		# run
 		print "run"
 	
-		result = call_system('timeout 3s make run -C "%s"' % self.testerdir)
+		result = call_system('timeout 10s make run -C "%s"' % self.testerdir)
 
 		print result
 
