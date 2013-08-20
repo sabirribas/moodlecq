@@ -86,13 +86,19 @@ class CodeTester:
 
 import os
 
+from subprocess import Popen, PIPE, STDOUT
+
 def call_system(cmd,tmpfile='/tmp/call_system'):
-    os.system(cmd+' > '+tmpfile)
-    f = open(tmpfile,'r')
-    tmp = f.read()
-    f.close()
-    os.system('rm '+tmpfile)
-    return tmp
+    #os.system(cmd+' > '+tmpfile)
+    #f = open(tmpfile,'r')
+    #tmp = f.read()
+    #f.close()
+    #os.system('rm '+tmpfile)
+    #return tmp
+    p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+    output = p.stdout.read()
+    return output
+    
 
 import random
 
@@ -254,8 +260,9 @@ class CodeTesterExternal(CodeTester):
 
 		print result
 
-		result = filter( lambda x: not ( len(x.strip()) == 0 or 
-			len(x)>=5 and x[:5]=='make:') , result.split('\n'))
+		#result = filter( lambda x: not ( len(x.strip()) == 0 or 
+		#	len(x)>=5 and x[:5]=='make:') , result.split('\n'))
+		result = filter( lambda x : len(x.strip()) > 5 and x[:5] == 'GRADE' , result.split('\n') )
 
 
 		gradeline = result[-1]
