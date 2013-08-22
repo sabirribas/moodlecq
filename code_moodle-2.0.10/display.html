@@ -1,0 +1,63 @@
+<div class="qtext">
+  <?php echo $questiontext; ?>
+</div>
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    <?php echo get_string("answer", "quiz").': '; ?>
+  </div>
+  <div class="answer">
+
+    <!-- <input type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname $value"; ?> size="80"/> --> 
+
+	<!-- sabir -->
+	<?php
+	///sabir: adicionando select lang
+	//$input.= html_writer::empty_tag('input', array('type'=>'radio',) );
+
+	$inputname2 = $nameprefix;
+
+	$lang = get_lang_from_last_line($currentanswer);
+	$input = "<br/><select name='".$inputname2."_inputlang' id='".$inputname2."_inputlang' $disabled >".
+                "<option value='cpp'>C++</option>".
+		"<option value='py'>Python</option>".
+                "<option value='sce'>Scilab</option>".
+                "<option value='logisim'>Logisim</option>".
+		"</select><br/>";
+	$input.= '<script>if(typeof funcs === "undefined") var funcs=new Array; funcs.push( function(){ var code = document.getElementById("'.$inputname2.'").value; var lang = document.getElementById("'.$inputname2.'_inputlang").value; var c = "//"; if (lang == "py") c = "#"; var newcode = code + "\n\n" + c + lang ; if (lang == "logisim") newcode = code + "\n\n<!-- logisim -->"; document.getElementById("'.$inputname2.'").value = newcode; } ); onsubmit=function(){ for (var i = 0; i < funcs.length; i++) funcs[i](); return true;}</script>';
+
+	$input.="<script>document.getElementById('".$inputname2."_inputlang').value='".$lang."';</script>";
+
+	echo $input;
+	?>
+
+	<!-- sabir -->
+    <textarea type="text" class="<?php echo $class; ?>" <?php echo "$readonly $inputname id='$nameprefix'"; ?> size="80"/><?php echo "$value"; ?></textarea>
+
+	<!-- sabir -->
+	<script>
+	function get_lang_from_last_line(code)
+	{
+		var lines = code.split('\n'); 
+		var lastline = lines[lines.length-1]; 
+		var c = Array('//cpp','//sce', '#py', '<!-- logisim -->');
+		var d = Array(  'cpp',  'sce',  'py',      'logisim'    );
+		var index = c.indexOf(lastline);
+		if (index < 0) return 'cpp';
+		return d[index];
+	}
+
+	var code = document.getElementById("<?php echo $inputname2; ?>").value;
+	var lang = get_lang_from_last_line(code);
+	document.getElementById("<?php echo $inputname2.'_inputlang'; ?>").value = lang;
+	</script>
+
+    <?php echo $feedbackimg; ?>
+  </div>
+  <?php if ($feedback) { ?>
+    <div class="feedback">
+      <?php echo $feedback ?>
+    </div>
+  <?php } ?>
+  <?php $this->print_question_submit_buttons($question, $state, $cmoptions, $options); ?>
+</div>

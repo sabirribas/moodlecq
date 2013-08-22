@@ -149,7 +149,7 @@ LOGGING = {
         },
     }
 }
-
+'''
 LOGGING = {
     'version': 1,
     'formatters': {
@@ -195,4 +195,4 @@ sys.stdout = open('/tmp/grader-stdout.log', 'w')
 
 saveerr = sys.stderr
 sys.stderr = open('/tmp/grader-stderr.log', 'w')  
-
+'''
