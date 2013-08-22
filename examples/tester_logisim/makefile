@@ -1,4 +1,3 @@
-
 tester:
 	# copiando código do estudante para soma.sci
 	chmod +x lgcor.sh
@@ -6,4 +5,4 @@ tester:
 
 run:
 	# executando testador
-	./lgcor.sh -t main.circ -s ha_solution.circ -q ha_query.circ
+	./lgcor.sh -t main.circ -s ha_solution.circ -q ha_query.circ -r RAM.txt
