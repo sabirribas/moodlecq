@@ -119,6 +119,8 @@ public function http_post ($url, $data)
 
 	// por enquanto apenas scores binários, o usuário tem que acertar tudo!
 	// na questão deve haver apenas um teste
+	return $resultjson->score;
+
 	if ($resultjson->score == 1)
 		return 1;
 	else
@@ -231,6 +233,40 @@ public function http_post ($url, $data)
         return true;
     }
 
+
+
+	///sabir:
+    function grade_responses(&$question, &$state, $cmoptions) {
+        // The default implementation uses the test_response method to
+        // compare what the student entered against each of the possible
+        // answers stored in the question, and uses the grade from the
+        // first one that matches. It also sets the marks and penalty.
+        // This should be good enought for most simple question types.
+
+		//echo "<script>alert('".$answer->fraction."')</script>";
+
+        $state->raw_grade = 0;
+        foreach($question->options->answers as $answer) {
+            if(true or $this->test_response($question, $state, $answer)) {
+                //$state->raw_grade = 0.8; //$answer->fraction;
+				$state->raw_grade = self::testcode($state->responses[''], $answer->answer);
+                break;
+            }
+        }
+
+        // Make sure we don't assign negative or too high marks.
+        $state->raw_grade = min(max((float) $state->raw_grade,
+                            0.0), 1.0) * $question->maxgrade;
+
+        // Update the penalty.
+        $state->penalty = $question->penalty * $question->maxgrade;
+
+        // mark the state as graded
+        $state->event = ($state->event ==  QUESTION_EVENTCLOSE) ? QUESTION_EVENTCLOSEANDGRADE : QUESTION_EVENTGRADE;
+
+        return true;
+    }
+
     function print_question_formulation_and_controls(&$question, &$state, $cmoptions, $options) {
         global $CFG;
         $context = $this->get_context_by_category_id($question->category);
@@ -273,14 +309,31 @@ public function http_post ($url, $data)
             //this is OK for the first answer with a good response
             foreach($question->options->answers as $answer) {
 
-                if ($this->test_response($question, $state, $answer)) {
+                if (true or $this->test_response($question, $state, $answer)) {
                     // Answer was correct or partially correct.
+
+					///sabir:
+					//$answer->penalty = 0.3;
+					//$answer->fraction = 0.5;
+					$answer->fraction = $state->last_graded->raw_grade / $question->maxgrade;
+					//echo "<script>alert('".$answer->fraction."')</script>";
+					//$state->last_graded->raw_grade = 0.5;
+					//$state->last_graded->grade = 0.5;
+					//echo "<script>alert('".$answer->fraction."');</script>";
+
+
                     $class = question_get_feedback_class($answer->fraction);
                     $feedbackimg = question_get_feedback_image($answer->fraction);
                     if ($answer->feedback) {
+
                         $answer->feedback = quiz_rewrite_question_urls($answer->feedback, 'pluginfile.php', $context->id, 'question', 'answerfeedback', array($state->attempt, $state->question), $answer->id);
                         $feedback = format_text($answer->feedback, $answer->feedbackformat, $formatoptions, $cmoptions->course);
+
+						///sabir:
+						//echo "<script>alert('feedback');</script>";
                     }
+					//echo "<script>alert('".$answer->feedback."');</script>";
+
                     break;
                 }
             }
@@ -315,7 +368,7 @@ public function http_post ($url, $data)
 
 		///sabir:
 		$a = self::testcode($state->responses[''], $answer->answer);
-		return $a;
+		return $a > 0;
 
         // Trim the response before it is saved in the database. See MDL-10709
         ///$state->responses[''] = trim($state->responses['']);
@@ -414,6 +467,8 @@ public function http_post ($url, $data)
                 }
             }
         }
+		///sabir:
+		//$state->last_graded->raw_grade = 0.1;
 
         if (QUESTION_EVENTDUPLICATE == $state->event) {
             echo ' ';
