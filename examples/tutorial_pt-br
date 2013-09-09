@@ -1,17 +1,34 @@
-= Como adicionar uma questão de código? =
+MoodleCQ
+========
 
-(1) Crie um questionário (Quiz)
+
+Adicionando uma questão de código
+=================================
+
+(1) Crie um questionário
 (2) Adicione uma questão do tipo "Code"
-(3) Preencha o enunciado
-(4) Forneça os dados de teste no campo "Answer 1"
+(3) Preencha o nome da questão e seu enunciado
+(4) Forneça os casos de teste em "Answer 1"
 
-= Opções de teste =
+O arquivo "questoes.htm" apresenta exemplos dos passos (3) e (4).
+
+Os outros campos de resposta (Answer 2, 3, ...), bem como seus 
+feedbacks, devem ser deixados em branco.
+
+IMPORTANTE: Nunca abra uma questão aos estudantes antes de 
+            verificar se a avaliação está correta.
+
+
+Opções de teste
+===============
 
 O plugin oferece duas opções de teste:
 (1) por entrada e saída padrão e
 (2) específico.
 
-== Teste por entrada e saída padrão ==
+
+Teste por entrada e saída padrão
+--------------------------------
 
 Gramática
 
@@ -22,24 +39,28 @@ output ::= string
 
 Exemplo
 
-[ ['1 2','3'] , ['-1 2','1'] ]
+[ ["1\n2\n","3"] , ["-1\n2\n","1"] ]
 
 A linha de teste acima automatiza a correção de um 
 exercício cujo objetivo é ler dois números inteiros
 da entrada padrão e apresentar a soma desses valores.
 
-== Testador específico ==
+
+Testador específico
+-------------------
 
 Gramática
 
-tests  ::= [['__TESTER__',url]]
+tests  ::= [["__TESTER__",url]]
 url    ::= string
 
 Exemplo
 
-[['__TESTER__','http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_cpp.zip']]
+[["__TESTER__","http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_cpp.zip"]]
 
-=== Definindo um testador específico ===
+
+Definindo um testador específico
+--------------------------------
 
 Um testador específico é um arquivo .zip contendo 
 um arquivo makefile com duas diretivas: tester e run.
@@ -49,7 +70,7 @@ Conteúdo do arquivo .zip
   - makefile
   - demais códigos e arquivos auxiliares necessários para compilação e teste
 
-Restrição sobre o 'make run'
+Restrição sobre o "make run"
 
 Para que o código do aluno seja avaliado e sua nota seja gravada no Moodle, 
 a última linha exibida pela diretiva run do makefile (make run) deve ser
@@ -67,3 +88,6 @@ Exemplo
 
 Veja: http://homepages.dcc.ufmg.br/~sabir/grader/tester_soma_cpp.zip
 
+
+=======================================
+https://github.com/sabirribas/moodlecq/
