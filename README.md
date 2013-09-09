@@ -1,7 +1,7 @@
 Moodle Code Question
 ====================
 
-Welcome to Moodle Code Question and Programming Assignments, a plugin for Moodle 2.4.3.
+Welcome to Moodle Code Question and Programming Assignments, a plugin for Moodle 2.0.10 and 2.4.3.
 
 Installation
 ------------
