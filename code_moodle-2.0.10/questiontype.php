@@ -79,6 +79,9 @@ public function http_post ($url, $data)
     public function testcode($usercode,$testset)
     {
 
+	echo "<script>alert('testcode called');</script>";
+	
+
 	// contornado última comparação
 	try {
 		//echo "<script>alert('".addslashes(json_encode($usercode)).'\n'.addslashes(json_encode($testset))."');</script>";
@@ -111,12 +114,14 @@ public function http_post ($url, $data)
 
 	$data_len = strlen ($data_url);
 
+
+	echo "<script>alert('Before request');</script>";
 	// {"score": 0.5, "params": {"lang": "py", "tests": [["1\n2\n", "3\n"], ["2\n3\n", "4\n"]], "code": "a = int(raw_input(''))\r\nb = int(raw_input(''))\r\nprint a+b\r\n"}, "method": "testcode", "result": {"success": [true, false]}}
 	$result = file_get_contents($url,false,stream_context_create(array('http'=>array('method'=>'post','content'=>$data_url,'timeout'=>2.5))),null);
 
 	$resultjson = json_decode($result);
 
-	//echo "<script>alert('".addslashes($resultjson->score).'\n'.addslashes($result).'\n'.addslashes($data_url)."');</script>";
+	echo "<script>alert('".addslashes($resultjson->score).'\n'.addslashes($result).'\n'.addslashes($data_url)."');</script>";
 
 	// por enquanto apenas scores binários, o usuário tem que acertar tudo!
 	// na questão deve haver apenas um teste
