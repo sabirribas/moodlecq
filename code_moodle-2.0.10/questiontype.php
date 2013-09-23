@@ -250,6 +250,7 @@ public function http_post ($url, $data)
         // This should be good enought for most simple question types.
 
 		//echo "<script>alert('".$answer->fraction."')</script>";
+	echo "<script>alert('grade_responses called')</script>";
 
         $state->raw_grade = 0;
         foreach($question->options->answers as $answer) {
