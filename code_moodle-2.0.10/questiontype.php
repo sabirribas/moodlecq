@@ -79,7 +79,7 @@ public function http_post ($url, $data)
     public function testcode($usercode,$testset)
     {
 
-	echo "<script>alert('testcode called');</script>";
+	///echo "<script>alert('testcode called');</script>";
 	
 
 	// contornado última comparação
@@ -115,17 +115,17 @@ public function http_post ($url, $data)
 	$data_len = strlen ($data_url);
 
 
-	echo "<script>alert('Before request');</script>";
+	///echo "<script>alert('Before request');</script>";
 	// {"score": 0.5, "params": {"lang": "py", "tests": [["1\n2\n", "3\n"], ["2\n3\n", "4\n"]], "code": "a = int(raw_input(''))\r\nb = int(raw_input(''))\r\nprint a+b\r\n"}, "method": "testcode", "result": {"success": [true, false]}}
 	$result = file_get_contents($url,false,stream_context_create(array('http'=>array('method'=>'post','content'=>$data_url,'timeout'=>2.5))),null);
 
 	$resultjson = json_decode($result);
 
-	echo "<script>alert('".addslashes($resultjson->score).'\n'.addslashes($result).'\n'.addslashes($data_url)."');</script>";
+	///echo "<script>alert('".addslashes($resultjson->score).'\n'.addslashes($result).'\n'.addslashes($data_url)."');</script>";
 
 	// por enquanto apenas scores binários, o usuário tem que acertar tudo!
 	// na questão deve haver apenas um teste
-	return $resultjson->score;
+	return ((float)$resultjson->score);
 
 	if ($resultjson->score == 1)
 		return 1;
@@ -250,7 +250,7 @@ public function http_post ($url, $data)
         // This should be good enought for most simple question types.
 
 		//echo "<script>alert('".$answer->fraction."')</script>";
-	echo "<script>alert('grade_responses called')</script>";
+	///echo "<script>alert('grade_responses called')</script>";
 
         $state->raw_grade = 0;
         foreach($question->options->answers as $answer) {
